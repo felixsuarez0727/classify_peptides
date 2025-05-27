@@ -32,7 +32,7 @@ El archivo de datos debe contener dos columnas:
 
 ## Evaluación
 
-El script muestra métricas de rendimiento (accuracy, precision, recall, F1-score) y matriz de confusión después de clasificar los péptidos.
+El script muestra métricas de rendimiento (accuracy, precision, recall, F1-score).
 
 ## resultados
 
