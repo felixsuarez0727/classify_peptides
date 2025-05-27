@@ -45,7 +45,7 @@ def generate_few_shot_prompt(sequence, examples):
     return final_prompt
 
 
-def classify_peptide_with_context(sequence, examples, model_name='llama3.2:1b'):
+def classify_peptide_with_context(sequence, examples, model_name='gemma3:1b'):
     prompt = generate_few_shot_prompt(sequence, examples)
     
     try:
@@ -72,12 +72,7 @@ def evaluate_model(y_true, y_pred):
     print("\nReporte de Clasificación:")
     print(classification_report(y_true_clean, y_pred_clean))
     print(f"\nExactitud (accuracy): {accuracy_score(y_true_clean, y_pred_clean):.4f}")
-    # Calcular y mostrar AUC-ROC solo si hay al menos dos clases presentes
-    if len(np.unique(y_true_clean)) == 2:
-        auc = roc_auc_score(y_true_clean, y_pred_clean)
-        print(f"AUC-ROC: {auc:.4f}")
-    else:
-        print("AUC-ROC no disponible (se requiere al menos dos clases).")
+   
 
 if __name__ == '__main__':
     df = load_data()
@@ -86,8 +81,12 @@ if __name__ == '__main__':
     # Dividir en entrenamiento y prueba
     train_df, test_df = train_test_split(df, test_size=0.2, stratify=df['y'], random_state=42)
 
+    # Calcular número máximo de ejemplos por clase
+    class_counts = train_df['y'].value_counts()
+    max_per_class = class_counts.min()
+    
     # Obtener ejemplos balanceados para few-shot
-    few_shot_examples = get_balanced_few_shot_examples(train_df, max_per_class=30)
+    few_shot_examples = get_balanced_few_shot_examples(train_df, max_per_class=max_per_class)
 
     print('Ejemplos usados para contexto few-shot:')
     for seq, label in few_shot_examples:
