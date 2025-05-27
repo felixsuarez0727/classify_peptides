@@ -32,17 +32,20 @@ El archivo de datos debe contener dos columnas:
 
 ## Evaluación
 
-El script muestra métricas de rendimiento (accuracy, precision, recall, F1-score).
+El script muestra métricas de rendimiento (accuracy, precision, recall, F1-score) y la matriz de confusión
 
-## resultados
+## resultados (Métricas del Modelo)
 
 # Reporte de Clasificación
 
 | Clase | Precision | Recall | F1-Score | Support |
 | ----- | --------- | ------ | -------- | ------- |
-| 0     | 0.47      | 0.49   | 0.48     | 37      |
-| 1     | 0.47      | 0.46   | 0.47     | 37      |
+| 0     | 0.60      | 0.41   | 0.48     | 37      |
+| 1     | 0.55      | 0.73   | 0.63     | 37      |
 
-## Métricas del Modelo
-
-- **Exactitud (accuracy)**: 0.4730
+- **Exactitud (accuracy)**: 0.5676
+- **Matriz de Confusión**:
+```
+[[15 22]
+ [10 27]]
+```
