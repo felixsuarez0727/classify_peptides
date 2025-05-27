@@ -87,7 +87,7 @@ if __name__ == '__main__':
     train_df, test_df = train_test_split(df, test_size=0.2, stratify=df['y'], random_state=42)
 
     # Obtener ejemplos balanceados para few-shot
-    few_shot_examples = get_balanced_few_shot_examples(train_df, max_per_class=20)
+    few_shot_examples = get_balanced_few_shot_examples(train_df, max_per_class=30)
 
     print('Ejemplos usados para contexto few-shot:')
     for seq, label in few_shot_examples:
