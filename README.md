@@ -45,7 +45,8 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
 
 - **Exactitud (accuracy)**: 0.5676
 - **Matriz de Confusión**:
-```
-[[15 22]
- [10 27]]
-```
+
+| 0   | 1   |
+| --- | --- |
+| 15  | 22  |
+| 10  | 27  |
