@@ -28,7 +28,7 @@ Este proyecto implementa un clasificador de péptidos de penetración celular (P
 El archivo de datos debe contener dos columnas:
 
 - 'peptide': secuencias de péptidos
-- 'y': etiquetas binarias (1 para PPC, 0 para no-PPC)
+- 'y': etiquetas binarias (1 para CPP, 0 para no-CPP)
 
 ## Evaluación
 
@@ -46,7 +46,7 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
 - **Exactitud (accuracy)**: 0.5676
 - **Matriz de Confusión**:
 
-|         | PCC | non-PCC |
+|         | CPP | non-CPP |
 | ------- | --- | ------- |
-| PCC     | 15  | 22      |
-| non-PCC | 10  | 27      |
+| CPP     | 15  | 22      |
+| non-CPP | 10  | 27      |
