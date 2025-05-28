@@ -46,7 +46,7 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
 - **Exactitud (accuracy)**: 0.5676
 - **Matriz de Confusión**:
 
-| 0   | 1   |
-| --- | --- |
-| 15  | 22  |
-| 10  | 27  |
+|         | PCC | non-PCC |
+| ------- | --- | ------- |
+| PCC     | 15  | 22      |
+| non-PCC | 10  | 27      |
