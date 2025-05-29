@@ -38,17 +38,57 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
 
 - > **Nota** Los resultados se obtuvieron utilizando el 80% de los datos para entrenamiento. Dentro de este conjunto, se seleccionó la clase con menor cantidad de ejemplos, y se tomaron igual número de instancias de la clase mayoritaria para conformar un conjunto balanceado. Estas muestras balanceadas fueron empleadas como ejemplos en el prompt para cada predicción.
 
--Modelo1: Llama3.2:1b
--Modelo2: qwen3:0.6b
+- Modelo1: Llama3.2:1b
+- Modelo2: qwen3:0.6b
 
 # Reporte de Clasificación
 
-| Modelo      | Clase   | Precision | Recall   | F1-Score |
-| ----------- | ------- | --------- | -------- | -------- |
-| Qwen3:0.6b  | non-CPP | **0.60**  | 0.41     | 0.48     |
-|             | CPP     | 0.55      | **0.73** | **0.63** |
-| LLaMA3:2.1b | non-CPP | 0.57      | 0.35     | 0.43     |
-|             | CPP     | 0.53      | **0.73** | 0.61     |
+<h3>📋 Métricas de Evaluación por Modelo y Clase</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Modelo</th>
+      <th>Clase</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1-Score</th>
+      <th>Support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Qwen3:0.6b</td>
+      <td>non-CPP</td>
+      <td><b>0.60</b></td>
+      <td>0.41</td>
+      <td>0.48</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>CPP</td>
+      <td>0.55</td>
+      <td><b>0.73</b></td>
+      <td><b>0.63</b></td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td rowspan="2">LLaMA3:2.1b</td>
+      <td>non-CPP</td>
+      <td>0.57</td>
+      <td>0.35</td>
+      <td>0.43</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>CPP</td>
+      <td><b>0.53</b></td>
+      <td><b>0.73</b></td>
+      <td>0.61</td>
+      <td>37</td>
+    </tr>
+  </tbody>
+</table>
 
 - **Exactitud (accuracy)**: 0.5676
 - **Matriz de Confusión**:
