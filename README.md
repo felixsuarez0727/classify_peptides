@@ -43,7 +43,7 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
 
 # Reporte de Clasificación
 
-<h3>📋 Métricas de Evaluación por Modelo y Clase</h3>
+<h3> Métricas de Evaluación por Modelo y Clase</h3>
 
 <table>
   <thead>
@@ -53,7 +53,6 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
       <th>Precision</th>
       <th>Recall</th>
       <th>F1-Score</th>
-      <th>Support</th>
     </tr>
   </thead>
   <tbody>
@@ -63,14 +62,12 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
       <td><b>0.60</b></td>
       <td>0.41</td>
       <td>0.48</td>
-      <td>37</td>
     </tr>
     <tr>
       <td>CPP</td>
       <td>0.55</td>
       <td><b>0.73</b></td>
       <td><b>0.63</b></td>
-      <td>37</td>
     </tr>
     <tr>
       <td rowspan="2">LLaMA3:2.1b</td>
@@ -78,14 +75,12 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
       <td>0.57</td>
       <td>0.35</td>
       <td>0.43</td>
-      <td>37</td>
     </tr>
     <tr>
       <td>CPP</td>
       <td><b>0.53</b></td>
       <td><b>0.73</b></td>
       <td>0.61</td>
-      <td>37</td>
     </tr>
   </tbody>
 </table>
