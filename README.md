@@ -1,8 +1,8 @@
-# Clasificador de Péptidos de Penetración Celular (PPC)
+# Clasificador de Péptidos de Penetración Celular (CPP)
 
 ## Descripción
 
-Este proyecto implementa un clasificador de péptidos de penetración celular (PPC) utilizando el modelo de lenguaje Llama3.2:1b a través de la API de Ollama. El script procesa un dataset de péptidos, realiza clasificación binaria (es_PPC: 1/0) y genera métricas de evaluación.
+Este proyecto implementa un clasificador de péptidos de penetración celular (CPP) utilizando el modelo de lenguaje Llama3.2:1b a través de la API de Ollama. El script procesa un dataset de péptidos, realiza clasificación binaria (es_CPP: 1/0) y genera métricas de evaluación.
 
 ## Requisitos
 
@@ -36,12 +36,19 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
 
 ## resultados (Métricas del Modelo)
 
+- > **Nota** Los resultados se obtuvieron utilizando el 80% de los datos para entrenamiento. Dentro de este conjunto, se seleccionó la clase con menor cantidad de ejemplos, y se tomaron igual número de instancias de la clase mayoritaria para conformar un conjunto balanceado. Estas muestras balanceadas fueron empleadas como ejemplos en el prompt para cada predicción.
+
+-Modelo1: Llama3.2:1b
+-Modelo2: qwen3:0.6b
+
 # Reporte de Clasificación
 
-| Clase | Precision | Recall | F1-Score | Support |
-| ----- | --------- | ------ | -------- | ------- |
-| 0     | 0.60      | 0.41   | 0.48     | 37      |
-| 1     | 0.55      | 0.73   | 0.63     | 37      |
+| Modelo      | Clase   | Precision | Recall   | F1-Score |
+| ----------- | ------- | --------- | -------- | -------- |
+| Qwen3:0.6b  | non-CPP | **0.60**  | 0.41     | 0.48     |
+|             | CPP     | 0.55      | **0.73** | **0.63** |
+| LLaMA3:2.1b | non-CPP | 0.57      | 0.35     | 0.43     |
+|             | CPP     | 0.53      | **0.73** | 0.61     |
 
 - **Exactitud (accuracy)**: 0.5676
 - **Matriz de Confusión**:
