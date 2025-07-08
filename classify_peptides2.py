@@ -4,6 +4,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
 from sklearn.metrics import roc_auc_score
+from datetime import datetime
+import json
 
 
 def load_data():
@@ -32,14 +34,14 @@ def get_balanced_few_shot_examples(df, max_per_class):
 def generate_few_shot_prompt(sequence, examples):
     example_prompt = ""
     for seq, label in examples:
-        example_prompt += f"Secuencia: {seq}\n¿Es un péptido de penetración celular? {label}\n\n"
+        example_prompt += f"Sequence: {seq}\nIs it a cell-penetrating peptide? {label}\n\n"
 
     final_prompt = (
-        "Eres un experto en clasificación de péptidos. "
-        "A continuación, se presentan ejemplos clasificados:\n\n"
+        "You are an expert in peptide classification. "
+        "Below are classified examples:\n\n"
         f"{example_prompt}"
-        f"Ahora analice la siguiente secuencia:\nSecuencia: {sequence}\n¿Es un péptido de penetración celular? Responda con 1 para sí, 0 para no.\n"
-        "Devuelva solo el valor numérico sin ninguna explicación."
+        f"Now analyze the following sequence:\nSequence: {sequence}\nIs it a cell-penetrating peptide? Reply with 1 for yes, 0 for no.\n"
+        "Return only the numeric value without any explanation."
     )
 
     return final_prompt
@@ -47,6 +49,7 @@ def generate_few_shot_prompt(sequence, examples):
 
 def classify_peptide_with_context(sequence, examples, model_name='gemma3:1b'):
     prompt = generate_few_shot_prompt(sequence, examples)
+    print("Modelo :", model_name)
     
     try:
         response = ollama.chat(model=model_name, messages=[{'role': 'user', 'content': prompt}])
@@ -62,17 +65,37 @@ def evaluate_model(y_true, y_pred):
     y_true_clean = y_true[mask].astype(int)
     y_pred_clean = y_pred[mask].astype(int)
 
+    accuracy = accuracy_score(y_true_clean, y_pred_clean)
+    precision = precision_score(y_true_clean, y_pred_clean)
+    recall = recall_score(y_true_clean, y_pred_clean)
+    f1 = f1_score(y_true_clean, y_pred_clean)
+    conf_matrix = confusion_matrix(y_true_clean, y_pred_clean).tolist()
+    class_report = classification_report(y_true_clean, y_pred_clean, output_dict=True)
+
     print("\n--- Métricas de Evaluación ---")
-    print("Accuracy: ", accuracy_score(y_true_clean, y_pred_clean))
-    print("Precision: ", precision_score(y_true_clean, y_pred_clean))
-    print("Recall: ", recall_score(y_true_clean, y_pred_clean))
-    print("F1-score: ", f1_score(y_true_clean, y_pred_clean))
+    print("Accuracy: ", accuracy)
+    print("Precision: ", precision)
+    print("Recall: ", recall)
+    print("F1-score: ", f1)
     print("\nMatriz de Confusión:")
-    print(confusion_matrix(y_true_clean, y_pred_clean))
+    print(conf_matrix)
     print("\nReporte de Clasificación:")
     print(classification_report(y_true_clean, y_pred_clean))
-    print(f"\nExactitud (accuracy): {accuracy_score(y_true_clean, y_pred_clean):.4f}")
-   
+    print(f"\nExactitud (accuracy): {accuracy:.4f}")
+
+    metrics = {
+        "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "accuracy": accuracy,
+        "precision": precision,
+        "recall": recall,
+        "f1_score": f1,
+        "confusion_matrix": conf_matrix,
+        "classification_report": class_report
+    }
+    json_path = f"data/metrics_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(metrics, f, indent=4, ensure_ascii=False)
+    print(f"Métricas guardadas en {json_path}")
 
 if __name__ == '__main__':
     df = load_data()
@@ -96,12 +119,14 @@ if __name__ == '__main__':
 
     # Clasificar con contexto few-shot
     test_df['predicted_class'] = test_df['peptide'].apply(
-        lambda seq: classify_peptide_with_context(seq, few_shot_examples)
+        lambda seq: classify_peptide_with_context(seq, few_shot_examples, model_name='qwen2.5:3b')
     )
 
     evaluate_model(test_df['y'], test_df['predicted_class'])
 
     # Guardar resultados
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     results_df = pd.concat([train_df.assign(predicted_class=np.nan), test_df])
-    results_df.to_excel('data/classification_results.xlsx', index=False)
-    print('Clasificación terminada. Resultados guardados en data/classification_results.xlsx')
+    output_path = f'data/classification_results_{timestamp}.xlsx'
+    results_df.to_excel(output_path, index=False)
+    print(f'Clasificación terminada. Resultados guardados en {output_path}')
