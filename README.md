@@ -39,7 +39,8 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
 - > **Nota** Los resultados se obtuvieron utilizando el 80% de los datos para entrenamiento. Dentro de este conjunto, se seleccionó la clase con menor cantidad de ejemplos, y se tomaron igual número de instancias de la clase mayoritaria para conformar un conjunto balanceado. Estas muestras balanceadas fueron empleadas como ejemplos en el prompt para cada predicción.
 
 - Modelo1: Llama3.2:1b
-- Modelo2: qwen3:0.6b
+- Modelo2: Qwen3:0.6b
+- Modelo3: Qwen2.5:3b
 
 # Reporte de Clasificación
 
@@ -82,13 +83,26 @@ El script muestra métricas de rendimiento (accuracy, precision, recall, F1-scor
       <td><b>0.73</b></td>
       <td>0.61</td>
     </tr>
+    <tr>
+      <td rowspan="2">Qwen2.5:3b</td>
+      <td>non-CPP</td>
+      <td><b>0.67</b></td>
+      <td>0.54</td>
+      <td>0.60</td>
+    </tr>
+    <tr>
+      <td>CPP</td>
+      <td>0.61</td>
+      <td><b>0.73</b></td>
+      <td><b>0.67</b></td>
+    </tr>
   </tbody>
 </table>
 
-- **Exactitud (accuracy)**: 0.5676
+- **Mejor exactitud (accuracy)**: 0.64
 - **Matriz de Confusión**:
 
 |         | CPP | non-CPP |
 | ------- | --- | ------- |
-| CPP     | 15  | 22      |
+| CPP     | 20  | 17      |
 | non-CPP | 10  | 27      |
